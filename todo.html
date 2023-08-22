@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo app</title>
+
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    input[type="text"] {
+        width: 95%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .completed {
+        text-decoration: line-through;
+        color: #888;
+    }
+    .complete-button{
+        padding-left: 5px;
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <h1>
+            TODO LIST
+        </h1>
+        <input type="text" id="task" placeholder="add a new task....">
+        <button id="addbutton">Add</button>
+        <ul id="task-list">
+
+        </ul>
+
+    </div>
+
+
+
+    <script>
+
+        const inputval = document.getElementById("task");
+        const addbut = document.getElementById("addbutton");
+        const addtask = document.getElementById("task-list");
+        addbut.addEventListener('click', addnewtask);
+
+        function addnewtask() {
+            const tasktest = inputval.value.trim();
+            if (tasktest === "") {
+                return;
+            }
+            const li = document.createElement("li");
+            li.innerHTML = `
+        <span>${tasktest}</span>
+        <button class="complete-button">Complete</button>
+        <button class="delete-button">Delete</button>
+    `;
+            addtask.appendChild(li);
+            inputval.value = "";
+            const completebutton = li.querySelector(".complete-button");
+            const deletebutton = li.querySelector(".delete-button");
+            completebutton.addEventListener('click', () => {
+                li.classList.toggle("completed");
+                deletebutton.addEventListener('click', () => {
+                    addtask.removeChild(li);
+                })
+            });
+        }
+    </script>
+</body>
+
+</html>
